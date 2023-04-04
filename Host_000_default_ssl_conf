@@ -1,0 +1,35 @@
+<IfModule mod_ssl.c>
+        <VirtualHost *:443>
+                ServerAdmin webmaster@localhost
+
+                ServerName name.domain.com.br
+                ServerAlias name.domain.com.br
+
+
+
+                ErrorLog /var/www/logs/name/error.log
+                CustomLog /var/www/logs/name/access.log combined
+
+
+
+
+                SSLEngine on
+                SSLProxyEngine On
+                SSLProxyVerify none
+                SSLProxyCheckPeerCN off
+                SSLProxyCheckPeerName off
+                SSLProxyCheckPeerExpire off
+                ProxyPreserveHost On
+
+
+                SSLCertificateFile      /etc/letsencrypt/live/domain.com.br/fullchain.pem
+                SSLCertificateKeyFile /etc/letsencrypt/live/domain.com.br/privkey.pem
+
+
+
+
+                ProxyPass "/" "https://192.168.1.130:8983/"
+                ProxyPassReverse "/" "https://192.168.1.130:8983/"
+        </VirtualHost>
+
+</IfModule>
